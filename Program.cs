@@ -4,87 +4,133 @@ namespace Name
 {
     class Program {
         static void Main(string[] args) {
-            Add();
+            MenuApp();
+        }
+
+        static void MenuApp() {
+            try
+            {
+                short option;
+
+                Console.Clear();
+                Console.WriteLine("Be welcomed!");
+                Console.WriteLine("What is your request?");
+                Console.WriteLine("1 - Addition");
+                Console.WriteLine("2 - Subtraction");
+                Console.WriteLine("3 - Division");
+                Console.WriteLine("4 - Multiplication");
+
+                Console.WriteLine("------------------------");
+                Console.WriteLine("Selection your option");
+
+                option = short.Parse(Console.ReadLine());  
+
+                switch(option) {
+                    case 1: Add(); break;
+                    case 2: Subtraction(); break;
+                    case 3: Division(); break;
+                    case 4: Multiplication(); break;
+                    default: MenuApp(); break;
+                } 
+
+            }
+            catch (System.Exception)
+            {                
+                MenuApp();
+            }
         }
 
         static void Add(){
-            float value1;
-            float value2;
-            float result;
-
-            Console.Clear();
-            Console.WriteLine("Primeiro valor: ");
-
-            value1 = float.Parse(Console.ReadLine());
-
-            Console.WriteLine("Segundo valor: ");
-            value2 = float.Parse(Console.ReadLine()); 
-
+            List<float> valuesList = _getValues();
+            float result = 0;
 
             Console.WriteLine("");
 
-            result = value1 + value2;
-            Console.WriteLine($"O resultado da soma é: {result}");
+            foreach(float value in valuesList) {
+                result += value;
+            }
+
+            Console.WriteLine($"The result is {result}");            
         }
 
         static void Subtraction() {
-            float value1;
-            float value2;
-            float result;
-
-            Console.Clear();
-            Console.WriteLine("Primeiro valor: ");
-
-            value1 = float.Parse(Console.ReadLine());
-
-            Console.WriteLine("Segundo valor: ");
-            value2 = float.Parse(Console.ReadLine()); 
-
+            List<float> valuesList = _getValues();
+            float result = 0;
 
             Console.WriteLine("");
 
-            result = value1 - value2;
-            Console.WriteLine($"O resultado da soma é: {result}");
+            foreach(float value in valuesList) {
+                result -= value;
+            }
+
+            Console.WriteLine($"The result is {result}");            
         }
 
         static void Division() {
-            float value1;
-            float value2;
-            float result;
+            try
+            {
+                List<float> valuesList = _getValues();
+                float? result = null;
 
-            Console.Clear();
-            Console.WriteLine("Primeiro valor: ");
+                Console.WriteLine("");
 
-            value1 = float.Parse(Console.ReadLine());
+                foreach(float value in valuesList) {
+                    if(result == null) {
+                        result = value;
+                    } else {
+                        result /= value;
+                    }
+                }
 
-            Console.WriteLine("Segundo valor: ");
-            value2 = float.Parse(Console.ReadLine()); 
+                if (result == float.NaN) {
+                    throw new Exception("Value cannot be divided by zero or has unexpected value");
+                }
 
-
-            Console.WriteLine("");
-
-            result = value1/value2;
-            Console.WriteLine($"O resultado da soma é: {result}");
+                Console.WriteLine($"The result is {result}");    
+            }
+            catch (System.Exception e)
+            {
+                
+                throw e;
+            }
+            
         }
-        
+
         static void Multiplication() {
-            float value1;
-            float value2;
-            float result;
-
-            Console.Clear();
-            Console.WriteLine("Primeiro valor: ");
-
-            value1 = float.Parse(Console.ReadLine());
-
-            Console.WriteLine("Segundo valor: ");
-            value2 = float.Parse(Console.ReadLine()); 
-
+            List<float> valuesList = _getValues();
+            float? result = null;
 
             Console.WriteLine("");
 
-            result = value1*value2;
-            Console.WriteLine($"O resultado da soma é: {result}");            
+            foreach(float value in valuesList) {
+                if(result == null) {
+                    result = value;
+                } else {
+                    result *= value;
+                }
+            }
+
+            Console.WriteLine($"The result is {result}");      
+        }
+
+        static private List<float> _getValues() {
+            float value1;
+            float value2;
+            List<float> list = new List<float>();
+
+            Console.Clear();
+            Console.WriteLine("First value: ");
+
+            value1 = float.Parse(Console.ReadLine());
+
+            list.Add(value1);
+
+            Console.WriteLine("Second value: ");
+            value2 = float.Parse(Console.ReadLine());
+
+            list.Add(value2);
+
+            return list;
         }
     }    
 }
