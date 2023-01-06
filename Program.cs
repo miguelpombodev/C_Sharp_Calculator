@@ -19,6 +19,7 @@ namespace Name
                 Console.WriteLine("2 - Subtraction");
                 Console.WriteLine("3 - Division");
                 Console.WriteLine("4 - Multiplication");
+                Console.WriteLine("5 - Exit Calculator");
 
                 Console.WriteLine("------------------------");
                 Console.WriteLine("Selection your option");
@@ -30,6 +31,7 @@ namespace Name
                     case 2: Subtraction(); break;
                     case 3: Division(); break;
                     case 4: Multiplication(); break;
+                    case 5: System.Environment.Exit(0); break;
                     default: MenuApp(); break;
                 } 
 
